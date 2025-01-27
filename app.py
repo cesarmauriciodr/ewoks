@@ -1,7 +1,10 @@
 from flask import Flask, jsonify
 from starship_api import get_starships, get_pilot_info, get_specific_starship, update_starship
+from config import DevelopmentConfig  # Importar configuración de desarrollo
 
+# Crear la aplicación Flask y cargar la configuración
 app = Flask(__name__)
+app.config.from_object(DevelopmentConfig)  # Usar la configuración de desarrollo
 
 @app.route('/api/nave_general', methods=['GET'])
 def nave_general():
@@ -26,4 +29,4 @@ def actualizar_nave():
     return jsonify(updated_starship), 200
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=app.config['DEBUG'])
