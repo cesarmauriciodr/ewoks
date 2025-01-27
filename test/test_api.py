@@ -20,7 +20,14 @@ def test_get_specific_ship():
     
 
 def test_update_ship():
-    response = client.put("/api/starships_update?ship_id=9", json={"name": "Death Star"})
-    assert "name" in response.json()
-    
-    print (response.json()["name"])
+    json = {
+        "name": "Death Star",
+        "model": "DS-1 Orbital Battle Station",
+        "cost_in_credits": "1000000000000",
+        "max_atmosphering_speed": "n/a",
+        "crew": "342,953",
+        "passengers": "843,342",
+    }
+    response = client.put("/api/starships_update?ship_id=9", json=json)
+    assert response.status_code == 422
+
